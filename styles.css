@@ -114,6 +114,8 @@ body {
   transform: translateX(-50%);
   width: 720px;
   max-width: 92%;
+  min-height: 700px;
+  /* Increased height */
   background: #FAF9F6;
   border: 3px solid var(--border);
   border-radius: 25px;
@@ -220,12 +222,25 @@ body {
 ========================= */
 .content {
   padding: 40px;
+  position: relative;
+  min-height: 655px;
+  display: flex;
+  flex-direction: column;
 }
+
 
 @media (max-width: 768px) {
   .content {
     padding: 25px;
   }
+}
+
+.finder-grid {
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+  flex-wrap: wrap;
+  gap: 30px;
 }
 
 .center {
@@ -234,6 +249,12 @@ body {
   align-items: center;
   height: 200px;
 }
+
+.flex-column {
+  flex-direction: column;
+  gap: 20px;
+}
+
 
 /* =========================
    FILE ICON
@@ -350,10 +371,11 @@ body {
   right: 20px;
   /* Tighter to corner */
   display: flex;
-  flex-direction: column-reverse;
-  /* Options stack upwards */
+  flex-direction: column;
+  /* Options stack normally (Top to Bottom), bottom anchor pushes Top up */
   align-items: center;
-  gap: 10px;
+  gap: 15px;
+  /* Increased gap for shadow clearance */
   z-index: 100;
   padding-right: 10px;
   /* Extra buffer */
@@ -449,18 +471,24 @@ body {
 .menu-options {
   display: flex;
   flex-direction: column-reverse;
-  gap: 10px;
+  gap: 15px;
+  /* More space for shadows */
 
   /* Accordion Effect */
   max-height: 0;
   opacity: 0;
   overflow: hidden;
   transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+
+  /* Fix shadow clipping */
+  padding: 5px;
+  margin: -5px;
+  /* Counteract padding layout shift if needed, or just let it exist */
 }
 
 .menu-options.open {
-  max-height: 200px;
-  /* Enough space for buttons */
+  max-height: 300px;
+  /* Enough space for buttons + padding */
   opacity: 1;
 }
 
@@ -601,6 +629,367 @@ body {
   to {
     transform: translateY(-20px);
   }
+}
+
+/* Background & Assets Styling */
+#start-screen {
+  background-image: url('assets/penta_valentine.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0 0 22px 22px;
+  /* Matches window bottom rounding */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  color: #fff;
+}
+
+
+/* Remove background and set text color for start screen */
+#start-screen .hero,
+#start-screen .center {
+  position: relative;
+  z-index: 2;
+  background: none;
+  backdrop-filter: none;
+  margin: 10px 40px;
+  padding: 10px;
+  border: none;
+  box-shadow: none;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+#start-screen h1,
+#start-screen p {
+  color: #fff !important;
+}
+
+.loading-gif {
+  width: 560px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+#loading-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.loading-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-footer {
+  padding-bottom: 20px;
+  opacity: 0.8;
+}
+
+
+
+/* =========================
+   PENTA CONSOLE SELECTION
+========================= */
+
+.penta-console-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  /* Reduced gap */
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding-bottom: 10px;
+  /* Reduced padding */
+  animation: popIn 0.3s ease;
+}
+
+.console-card {
+  background: var(--primary);
+  border: 4px solid var(--border);
+  border-radius: 40px;
+  box-shadow: 8px 8px 0px var(--border);
+  width: 100%;
+  padding: 20px;
+  /* Reduced padding */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+
+.console-top-dots {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.console-top-dots span {
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  border: 2px solid var(--border);
+  border-radius: 50%;
+}
+
+.console-screen {
+  background: var(--bg);
+  /* Theme background */
+  border: 3px solid var(--border);
+  border-radius: 25px;
+  aspect-ratio: 16 / 9;
+  /* Wider screen saves vertical space */
+  overflow: hidden;
+  position: relative;
+}
+
+
+.console-bottom-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+  /* Tighter spacing */
+  padding: 0 10px;
+}
+
+.red-dot {
+  width: 16px;
+  height: 16px;
+  background: var(--accent);
+  border: 3px solid var(--border);
+  border-radius: 50%;
+}
+
+
+.speaker-grille {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.speaker-grille span {
+  width: 30px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+}
+
+
+/* Track overrides for console */
+.nb-carousel-viewport {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.nb-carousel-track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  height: 100%;
+}
+
+.nb-carousel-slide {
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide-img {
+  width: 100%;
+  /* Fill the window area */
+  height: 100%;
+  object-fit: contain;
+  /* Auto resize to fit within screen box */
+}
+
+
+/* Pagination Dots */
+.pagination-dots {
+  display: flex;
+  gap: 10px;
+  margin: 5px 0;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background: #ddd;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  width: 28px;
+  border-radius: 6px;
+  background: var(--border);
+}
+
+
+/* Info Box */
+.info-box {
+  background: white;
+  border: 4px solid var(--border);
+  border-radius: 25px;
+  box-shadow: 6px 6px 0px var(--border);
+  padding: 15px 20px;
+  /* Tighter padding */
+  width: 100%;
+  text-align: left;
+}
+
+.info-box h2 {
+  font-family: 'Space Mono', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: var(--text);
+  text-shadow: none;
+}
+
+.info-box p {
+  font-size: 14px;
+  line-height: 1.3;
+  color: var(--text);
+}
+
+/* Get Started Button */
+.get-started-btn {
+  background: var(--secondary);
+  color: var(--text);
+  border: 4px solid var(--border);
+  border-radius: 25px;
+  box-shadow: 6px 6px 0px var(--border);
+  width: 100%;
+  padding: 15px;
+  /* Tighter padding */
+  font-family: 'Space Mono', monospace;
+  font-size: 20px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  margin-top: 5px;
+}
+
+.get-started-btn:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0px var(--border);
+}
+
+.get-started-btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 3px 3px 0px var(--border);
+}
+
+/* Arrows */
+.console-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  border: 3px solid var(--border);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 5;
+  color: var(--border);
+}
+
+
+.console-arrow.l {
+  left: -22px;
+}
+
+.console-arrow.r {
+  right: -22px;
+}
+
+@media (max-width: 768px) {
+  .penta-console-container {
+    max-width: 320px;
+    padding: 10px;
+  }
+
+  .info-box {
+    padding: 15px;
+  }
+
+  .get-started-btn {
+    font-size: 18px;
+  }
+}
+
+/* =========================
+   GAME VIEW STYLES
+========================= */
+.avatar-header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  display: inline-flex;
+  /* Stacked drop-shadows create a 'border' effect around the transparent mask edge */
+  filter: drop-shadow(2px 0 0 var(--border)) drop-shadow(-2px 0 0 var(--border)) drop-shadow(0 2px 0 var(--border)) drop-shadow(0 -2px 0 var(--border)) drop-shadow(6px 6px 0px var(--border));
+}
+
+.mask {
+  width: 130px;
+  height: 130px;
+  background: white;
+  /* Behind the penguin */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.mask-heart {
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/></svg>");
+  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/></svg>");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+  background: white;
+}
+
+
+.mask img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: white;
 }
 
 .question-text {

@@ -21,6 +21,11 @@
 
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/phosphor-icons"></script>
+
+    <!-- KaTeX for Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
 </head>
 
 <body>
@@ -48,7 +53,7 @@
             <i class="ph-heart header-icon"></i>
         </div>
 
-        <div class="cintent center">
+        <div class="content finder-grid">
             <div class="file-icon" id="start-game">
                 <i class="ph ph-file-x"></i>
                 <span>Hmph.exe</span>
@@ -70,31 +75,93 @@
 
         <div class="content">
 
-            <!-- VIEW 1: Character Selection -->
-            <div id="character-select-view">
+            <!-- VIEW 0: Start Screen -->
+            <div id="start-screen">
                 <div class="hero">
-                    <h1>Choose Your Penta 🐧</h1>
-                    <p>Who will be your Valentine?</p>
+                    <h1>Valentine.exe</h1>
+                    <p>System Ready?</p>
                 </div>
+                <div class="center">
+                    <button class="btn" onclick="startLoadingSequence()">
+                        <i class="ph-play"></i> Launch
+                    </button>
+                </div>
+            </div>
 
-                <div class="character-grid">
-                    <div class="char-card" onclick="game.selectPenta('penta_chef')">
-                        <img src="assets/penta_chef.png" alt="Chef">
-                        <span>Chef</span>
+            <!-- VIEW 0.5: Loading Screen -->
+            <div id="loading-screen" class="hidden">
+                <div class="loading-main">
+                    <img src="assets/penta_running.gif" alt="Running Penta" class="loading-gif">
+                    <div class="loading-wave">
+                        <div class="loading-dot"></div>
+                        <div class="loading-dot"></div>
+                        <div class="loading-dot"></div>
                     </div>
-                    <div class="char-card" onclick="game.selectPenta('penta_wizard')">
-                        <img src="assets/penta_wizard.png" alt="Wizard">
-                        <span>Wizard</span>
+                </div>
+                <div class="loading-footer">
+                    <h2>Loading Assets...</h2>
+                </div>
+            </div>
+
+            <!-- VIEW 1: Character Selection (Console) -->
+            <div id="character-select-view" class="hidden">
+                <div class="penta-console-container">
+
+                    <!-- Top Console Card -->
+                    <div class="console-card">
+                        <div class="console-top-dots"><span></span><span></span></div>
+
+                        <!-- Navigation Arrows (Subtle) -->
+                        <button class="console-arrow l" onclick="moveCarousel(-1)">◀</button>
+                        <button class="console-arrow r" onclick="moveCarousel(1)">▶</button>
+
+                        <div class="console-screen">
+                            <div class="nb-carousel-viewport">
+                                <div class="nb-carousel-track" id="carousel-track">
+                                    <div class="nb-carousel-slide"><img src="assets/penta_wizard.png" class="slide-img"
+                                            alt="Wizard"></div>
+                                    <div class="nb-carousel-slide"><img src="assets/penta_chef.png" class="slide-img"
+                                            alt="Chef"></div>
+                                    <div class="nb-carousel-slide"><img src="assets/penta_cupid.png" class="slide-img"
+                                            alt="Cupid"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="console-bottom-details">
+                            <div class="red-dot"></div>
+                            <div class="speaker-grille"><span></span><span></span><span></span></div>
+                        </div>
                     </div>
-                    <div class="char-card" onclick="game.selectPenta('penta_cupid')">
-                        <img src="assets/penta_cupid.png" alt="Cupid">
-                        <span>Cupid</span>
+
+                    <!-- Pagination Dots -->
+                    <div class="pagination-dots" id="pagination-dots">
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
                     </div>
+
+                    <!-- Info Box -->
+                    <div class="info-box">
+                        <h2 id="char-title">Mathematical Penguin</h2>
+                        <p id="char-desc">Logic. Patterns. Chaos equations. Explore the beauty of numbers with Wizard
+                            Penta!</p>
+                    </div>
+
+                    <!-- Action Button -->
+                    <button class="get-started-btn" onclick="confirmSelection()">Get Started!</button>
                 </div>
             </div>
 
             <!-- VIEW 2: Game Question -->
             <div id="game-view" class="hidden">
+                <div class="avatar-header">
+                    <div class="avatar">
+                        <div class="mask mask-heart">
+                            <img id="game-avatar" src="" alt="Penta" />
+                        </div>
+                    </div>
+                </div>
                 <div class="hero">
                     <h2 id="question-text" class="question-text">Question goes here...</h2>
                 </div>
@@ -120,7 +187,7 @@
     </div>
 
     <div class="footer">
-        I • O • U
+       0 I • 2 O • 5 U
     </div>
 
     <!-- Collapsible Home Menu -->
@@ -132,7 +199,7 @@
                 <i class="ph-music-notes-simple"></i>
             </button>
             <button class="menu-btn" onclick="showMessageModal()" title="Message">
-                <i class="ph-chat-heart"></i>
+                <i class="ph ph-heart-break"></i>
             </button>
             <button class="menu-btn" onclick="goBack()" title="Go Back">
                 <i class="ph-arrow-bend-up-left"></i>

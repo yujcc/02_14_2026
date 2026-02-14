@@ -22,6 +22,8 @@ class GameEngine {
         this.renderQuestion();
     }
 
+
+
     handleAnswer(optionIndex) {
         const node = this.currentPenta.nodes[this.currentNodeId];
         const option = node.options[optionIndex];
@@ -34,7 +36,6 @@ class GameEngine {
         }
 
         // Track path for Easter Egg
-        // Format: [prevNode]_[choiceIndex] -> e.g., "q1_0"
         this.pathHistory.push(`${this.currentNodeId}_${optionIndex}`);
 
         // Move to next node
@@ -45,6 +46,8 @@ class GameEngine {
             this.finishGame();
         }
     }
+
+
 
     finishGame() {
         // Calculate result
@@ -90,16 +93,22 @@ class GameEngine {
 
     // --- UI Rendering (Bridging to DOM) ---
 
-    renderQuestion() {
+    renderQuestion(skipHistory = false) {
         const node = this.currentPenta.nodes[this.currentNodeId];
         const view = document.getElementById("game-view");
         const questionText = document.getElementById("question-text");
         const optionsContainer = document.getElementById("options-container");
+        const avatarEl = document.getElementById("game-avatar");
 
         // Show game view, hide others
         document.getElementById("character-select-view").classList.add("hidden");
         document.getElementById("result-view").classList.add("hidden");
         view.classList.remove("hidden");
+
+        // Update Avatar
+        if (avatarEl && this.currentPenta && this.currentPenta.icon) {
+            avatarEl.src = this.currentPenta.icon;
+        }
 
         // Update Text
         questionText.textContent = node.text;
@@ -113,9 +122,25 @@ class GameEngine {
             btn.onclick = () => this.handleAnswer(index);
             optionsContainer.appendChild(btn);
         });
+
+        if (!skipHistory && typeof pushHistory === "function") pushHistory();
+
+        // Render LaTeX
+        if (typeof renderMathInElement === "function") {
+            renderMathInElement(view, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },
+                    { left: '\\[', right: '\\]', display: true }
+                ],
+                throwOnError: false
+            });
+        }
     }
 
-    renderResult(type) {
+
+    renderResult(type, skipHistory = false) {
         const resultView = document.getElementById("result-view");
         const resultTitle = document.getElementById("result-title");
         const resultDesc = document.getElementById("result-desc");
@@ -124,17 +149,20 @@ class GameEngine {
         resultView.classList.remove("hidden");
 
         if (type === "surprise") {
-            resultTitle.textContent = "Spectacular Success!";
+            resultTitle.textContent = "Spectacular Success! 🎉";
             resultDesc.textContent = "You know Penta perfectly! (Surprise Unlocked)";
-            this.triggerConfetti();
+            if (!skipHistory) this.triggerConfetti();
         } else if (type === "success") {
-            resultTitle.textContent = "Success!";
-            resultDesc.textContent = "Great job! Penta is happy.";
+            resultTitle.textContent = "Ehhh alright.";
+            resultDesc.textContent = "You did okay. Penta is mildly impressed.";
         } else {
             resultTitle.textContent = "Oh no...";
-            resultDesc.textContent = "Penta is confused. Try again?";
+            resultDesc.textContent = "That was... not great. (Sad message). Try again?";
         }
+
+        if (!skipHistory && typeof pushHistory === "function") pushHistory();
     }
+
 
     triggerConfetti() {
         const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'];
