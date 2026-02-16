@@ -7,6 +7,29 @@ const startScreen = document.getElementById("start-screen");
 const loadingScreen = document.getElementById("loading-screen");
 const charSelectView = document.getElementById("character-select-view");
 
+// --- SFX Logic ---
+function playSFX(src) {
+    const audio = new Audio(src);
+    audio.play().catch(e => console.log("SFX play blocked:", e));
+}
+
+// Global Click
+document.addEventListener("click", (e) => {
+    if (e.target.closest("button") || e.target.closest(".btn")) {
+        playSFX("assets/click.mp3");
+    }
+});
+
+// Selection Hover SFX
+document.addEventListener("mouseover", (e) => {
+    const target = e.target.closest(".console-arrow, .nb-carousel-slide, .dot, .get-started-btn");
+    if (target && !target.dataset.hovered) {
+        playSFX("assets/bubble.mp3");
+        target.dataset.hovered = "true";
+        target.addEventListener("mouseleave", () => delete target.dataset.hovered, { once: true });
+    }
+});
+
 // --- History System ---
 const historyStack = [];
 
@@ -23,7 +46,6 @@ function captureState() {
             slide: currentSlide
         },
 
-        modalVisible: !document.getElementById("custom-modal").classList.contains("hidden"),
         menuOpen: document.getElementById("menu-options").classList.contains("open")
     };
 }
@@ -83,10 +105,6 @@ function applyState(state) {
     const track = document.getElementById("carousel-track");
     if (track) track.style.transform = `translateX(-${currentSlide * 100}%)`;
 
-    // Modal
-    const modal = document.getElementById("custom-modal");
-    state.modalVisible ? modal.classList.remove("hidden") : modal.classList.add("hidden");
-
     // Menu
     const menu = document.getElementById("menu-options");
     const trigger = document.getElementById("menu-trigger");
@@ -124,9 +142,21 @@ function moveCarousel(direction) {
 
 function updateSelectionUI() {
     const charData = [
-        { title: "Mathematical Penguin", desc: "Logic. Patterns. Chaos equations. Explore the beauty of numbers with Wizard Penta!" },
-        { title: "Emotional Penguin", desc: "Feelings. Love languages. Romance. Find the warmth of connection with Chef Penta." },
-        { title: "Future Penguin", desc: "Career. Ambition. Long-term goals. Navigate the path to tomorrow with Cupid Penta!" }
+        {
+            title: "The Math Wizard",
+            desc: "Logic. Patterns. Chaos equations.",
+            iq: 95, eq: 20, det: 65
+        },
+        {
+            title: "Pentatouille",
+            desc: "Feelings. Love languages. Romance.",
+            iq: 25, eq: 65, det: 90
+        },
+        {
+            title: "The Homeless Cupid",
+            desc: "Career. Ambition. Long-term goals.",
+            iq: 10, eq: 95, det: 30
+        }
     ];
 
     const current = charData[currentSlide];
@@ -136,6 +166,15 @@ function updateSelectionUI() {
 
     if (titleEl) titleEl.textContent = current.title;
     if (descEl) descEl.textContent = current.desc;
+
+    // Update Stats
+    const iqBar = document.getElementById("stat-iq");
+    const eqBar = document.getElementById("stat-eq");
+    const detBar = document.getElementById("stat-det");
+
+    if (iqBar) iqBar.style.width = current.iq + "%";
+    if (eqBar) eqBar.style.width = current.eq + "%";
+    if (detBar) detBar.style.width = current.det + "%";
 
     dots.forEach((dot, idx) => {
         if (idx === currentSlide) dot.classList.add("active");
@@ -230,15 +269,72 @@ function showMessageModal() {
     const trigger = document.getElementById("menu-trigger");
     options.classList.remove("open");
     trigger.classList.remove("active");
-    pushHistory();
 }
 
 
-function closeModal(event) {
-    if (event.target.id === "custom-modal" || event.target.closest(".modal-close")) {
+function closeModal(e) {
+    if (e.target.id === "custom-modal" || e.target.closest(".modal-close")) {
         document.getElementById("custom-modal").classList.add("hidden");
-        pushHistory();
     }
+}
+
+function closeMasteryModal(e) {
+    if (e.target.id === "mastery-modal" || e.target.closest(".modal-close")) {
+        document.getElementById("mastery-modal").classList.add("hidden");
+    }
+}
+
+
+function closeSystemModal() {
+    document.getElementById("system-modal").classList.add("hidden");
+}
+
+function showSystemModal(title, message, icon = "⚠️", buttons = null) {
+    const modal = document.getElementById("system-modal");
+    document.getElementById("system-title").textContent = title;
+    document.getElementById("system-desc").innerHTML = message;
+    document.getElementById("system-icon").textContent = icon;
+
+    const footer = document.getElementById("system-footer");
+    footer.innerHTML = "";
+
+    if (buttons) {
+        buttons.forEach(btn => {
+            const b = document.createElement("button");
+            b.className = `btn ${btn.className || ""}`;
+            b.textContent = btn.text;
+            b.onclick = () => {
+                if (btn.action) btn.action();
+                closeSystemModal();
+            };
+            footer.appendChild(b);
+        });
+    } else {
+        const closeBtn = document.createElement("button");
+        closeBtn.className = "btn";
+        closeBtn.textContent = "Close";
+        closeBtn.onclick = closeSystemModal;
+        footer.appendChild(closeBtn);
+    }
+
+    modal.classList.remove("hidden");
+}
+
+function resetProgress() {
+    showSystemModal(
+        "Reset All Progress?",
+        "Are you sure you want to delete everything? Your milestones, cleared questions, and character masteries will be wiped forever.",
+        "🗑️",
+        [
+            { text: "Cancel", className: "btn-secondary", action: null },
+            {
+                text: "Reset Everything", className: "btn-danger", action: () => {
+                    localStorage.clear();
+                    location.reload();
+                }
+            }
+        ]
+    );
 }
 
 
@@ -264,6 +360,14 @@ function toggleMusic() {
         isMusicPlaying = true;
     }
 }
+
+function restartGame() {
+    document.getElementById("result-view").classList.add("hidden");
+    document.getElementById("character-select-view").classList.remove("hidden");
+    updateSelectionUI();
+    pushHistory();
+}
+
 
 function goBack() {
     if (historyStack.length > 1) {

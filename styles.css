@@ -427,6 +427,24 @@ body {
   animation: fadeIn 0.2s ease;
 }
 
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.finale-box .modal-footer {
+  justify-content: center;
+}
+
+.modal-desc {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
 .modal-box {
   background: #FAF9F6;
   border: 3px solid var(--border);
@@ -456,6 +474,39 @@ body {
   margin-bottom: 15px;
   display: block;
   animation: float 3s ease-in-out infinite;
+}
+
+/* Mastery Specific Modal */
+.mastery-box {
+  background: #fffdf0;
+  /* Slight gold tint */
+  border-color: #f59e0b;
+  box-shadow: 8px 8px 0px #f59e0b;
+}
+
+.modal-trophy-icon {
+  font-size: 50px;
+  color: #f59e0b;
+  margin-bottom: 20px;
+  display: block;
+  animation: rotateGlow 4s linear infinite;
+}
+
+@keyframes rotateGlow {
+  0% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 5px gold);
+  }
+
+  50% {
+    transform: scale(1.1) rotate(10deg);
+    filter: drop-shadow(0 0 15px orange);
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 5px gold);
+  }
 }
 
 @keyframes fadeIn {
@@ -874,6 +925,62 @@ body {
   color: var(--text);
 }
 
+.char-stats {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stat-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stat-label {
+  font-family: "Space Mono", monospace;
+  font-size: 10px;
+  font-weight: bold;
+  width: 30px;
+  color: var(--text);
+}
+
+.stat-bar-bg {
+  flex-grow: 1;
+  height: 10px;
+  background: #eee;
+  border: 2px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-bar-fill {
+  height: 100%;
+  background: var(--primary);
+  width: 0%;
+  transition: width 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#stat-iq {
+  background: #3b82f6;
+  width: 95%
+}
+
+/* Blue */
+#stat-eq {
+  background: #ec4899;
+  width: 20%
+}
+
+/* Pink */
+#stat-det {
+  background: #f59e0b;
+  width: 65%
+}
+
+/* Orange */
+
 /* Get Started Button */
 .get-started-btn {
   background: var(--secondary);
@@ -1019,4 +1126,481 @@ body {
 .option-btn:hover {
   background: var(--primary);
   color: var(--text);
+}
+
+/* ============================= */
+/* WIZARD SPELL OVERLAY */
+/* ============================= */
+
+.spell-overlay {
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 9999;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Magic Circle */
+.spell-circle {
+  width: 320px;
+  height: 320px;
+  border: 4px solid #a855f7;
+  border-radius: 50%;
+  position: absolute;
+  animation: rotateCircle 6s linear infinite;
+  box-shadow: 0 0 50px #9333ea, inset 0 0 30px #a855f7;
+}
+
+.spell-circle-inner {
+  width: 240px;
+  height: 240px;
+  border: 2px solid gold;
+  border-radius: 50%;
+  position: absolute;
+  animation: rotateCircleReverse 4s linear infinite;
+  box-shadow: 0 0 20px gold;
+}
+
+.spell-circle::before,
+.spell-circle::after {
+  content: "";
+  position: absolute;
+  inset: 15px;
+  border: 2px dashed #c084fc;
+  border-radius: 50%;
+}
+
+.magic-symbol {
+  position: absolute;
+  color: rgba(168, 85, 247, 0.8);
+  font-size: 24px;
+  font-weight: bold;
+  pointer-events: none;
+  text-shadow: 0 0 10px #a855f7;
+  animation: floatSymbol 4s ease-in-out infinite;
+}
+
+/* Lightning Burst */
+.spell-lightning {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, transparent 60%);
+  animation: lightningFlash 1.2s ease-out forwards;
+}
+
+/* Text */
+.spell-text {
+  position: relative;
+  margin-top: 300px;
+  font-size: 2rem;
+  font-weight: bold;
+  color: gold;
+  text-shadow:
+    0 0 10px #fff,
+    0 0 20px gold,
+    0 0 40px orange;
+  animation: textGlow 1.5s ease-in-out infinite alternate;
+}
+
+.btn.btn-danger {
+  background: #ff3b30;
+  color: white;
+  border-color: #d32f2f;
+}
+
+.btn.btn-danger:hover {
+  background: #d32f2f;
+}
+
+.btn.btn-secondary {
+  background: #eee;
+  color: #333;
+  border-color: #ccc;
+}
+
+.btn.btn-secondary:hover {
+  background: #ddd;
+}
+
+/* ============================= */
+/* LAYOUT */
+/* ============================= */
+
+/* ============================= */
+/* ANIMATIONS */
+/* ============================= */
+
+@keyframes rotateCircle {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateCircleReverse {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes lightningFlash {
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+
+  10%,
+  30% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+
+  20%,
+  40% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes floatSymbol {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(var(--rx, 20px), var(--ry, -100px)) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes sparkBurst {
+  0% {
+    transform: translate(0, 0) scale(1.5);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(var(--tx), var(--ty)) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes screenShake {
+  0% {
+    transform: translate(0px, 0px);
+  }
+
+  50% {
+    transform: translate(3px, -3px);
+  }
+
+  100% {
+    transform: translate(-3px, 3px);
+  }
+}
+
+@keyframes sparkFly {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(-200px) scale(0);
+    opacity: 0;
+  }
+}
+
+/* ============================= */
+/* HEART RAIN */
+/* ============================= */
+
+#heart-rain-container {
+  position: absolute;
+  /* Relative to spell-overlay */
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 9998;
+}
+
+.heart {
+  position: absolute;
+  top: -50px;
+  font-size: 20px;
+  animation: fall linear forwards;
+  opacity: 0.9;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+  }
+
+  100% {
+    transform: translateY(110vh) translateX(40px) rotate(360deg);
+  }
+}
+
+/* ============================= */
+/* CASH RAIN */
+/* ============================= */
+
+#cash-rain-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 9997;
+}
+
+.cash {
+  position: absolute;
+  top: -60px;
+  font-size: 28px;
+  animation: cashFall linear forwards;
+  opacity: 0.95;
+  will-change: transform;
+}
+
+@keyframes cashFall {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+  }
+
+  25% {
+    transform: translateY(25vh) translateX(-20px) rotate(90deg);
+  }
+
+  50% {
+    transform: translateY(50vh) translateX(20px) rotate(180deg);
+  }
+
+  75% {
+    transform: translateY(75vh) translateX(-15px) rotate(270deg);
+  }
+
+  100% {
+    transform: translateY(110vh) translateX(10px) rotate(360deg);
+  }
+}
+
+/* ============================= */
+/* ROSE EXPLOSION */
+/* ============================= */
+
+#rose-animation-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 10000;
+}
+
+.rose-center {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  font-size: 80px;
+  transform: translate(-50%, -50%) scale(0);
+  animation: rosePop 0.8s ease-out forwards;
+  filter: drop-shadow(0 0 20px crimson);
+  z-index: 10001;
+}
+
+@keyframes rosePop {
+  0% {
+    transform: translate(-50%, -50%) scale(0) rotate(-45deg);
+    opacity: 0;
+  }
+
+  40% {
+    transform: translate(-50%, -50%) scale(1.75) rotate(10deg);
+    opacity: 1;
+  }
+
+  60% {
+    shadow: 0 0 100px crimson;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1.2) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.petal {
+  position: fixed;
+  pointer-events: none;
+  will-change: transform;
+  z-index: 10000;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.1));
+}
+
+@keyframes petalExplosion {
+  0% {
+    transform: translate(-50%, -50%) scale(0) rotate(0deg);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+    transform: translate(var(--tx), var(--ty)) scale(1.1) rotate(180deg);
+  }
+
+  100% {
+    transform: translate(calc(var(--tx) * 1.15), 110vh) scale(0.8) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* ============================= */
+/* FOURIER HEART */
+/* ============================= */
+
+#fourier-container {
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+
+#fourier-canvas {
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+}
+
+.fourier-message {
+  position: absolute;
+  top: 15%;
+  font-family: "Outfit", sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  color: #ffb7c5;
+  text-shadow: 0 0 20px rgba(255, 183, 197, 0.8), 0 0 40px rgba(255, 183, 197, 0.4);
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 1s ease-out;
+  pointer-events: none;
+}
+
+.fourier-message.show {
+  opacity: 1;
+  transform: translateY(0);
+  animation: messageBreathe 2s ease-in-out infinite;
+}
+
+@keyframes messageBreathe {
+
+  0%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+    filter: brightness(1.2);
+  }
+}
+
+.quest-box,
+.finale-box {
+  width: 90%;
+  max-width: 600px;
+  padding: 40px;
+}
+
+.math-formula {
+  font-family: "Space Mono", monospace;
+  background: #fdf2f2;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  margin: 20px 0;
+  font-size: 1.3rem;
+  border: 2px solid #ffccd5;
+  color: #c026d3;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.quest-question {
+  font-weight: bold;
+  margin: 25px 0;
+  color: #333;
+  text-align: center;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.present-container {
+  margin-top: 30px;
+  padding: 25px;
+  background: #fffafa;
+  border-radius: 16px;
+  border: 3px dashed #ffb7c5;
+  animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.tracking-value {
+  display: block;
+  font-family: "Space Mono", monospace;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #ff2d55;
+  letter-spacing: 3px;
+  margin-top: 10px;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .spell-circle {
+    width: 180px;
+    height: 180px;
+  }
+
+  .spell-text {
+    font-size: 1.4rem;
+    margin-top: 220px;
+    text-align: center;
+    padding: 0 20px;
+  }
 }

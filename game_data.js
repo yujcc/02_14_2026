@@ -1,9 +1,11 @@
 const GAME_DATA = {
     "penta_chef": {
         "id": "penta_chef",
-        "name": "Chef Penta",
+        "name": "Pentatouille",
         "icon": "assets/penta_chef.svg",
         "description": "Cooks with love (and chaos).",
+        "surpriseTitle": "Career Survivor Unleashed! 🍳",
+        "surpriseDesc": "You've turned 2026's chaos into a five-star meal. Someone get this bird a job!",
         "startNode": "q1",
         "nodes": {
             "q1": {
@@ -66,9 +68,11 @@ const GAME_DATA = {
     },
     "penta_wizard": {
         "id": "penta_wizard",
-        "name": "Wizard Penta",
+        "name": "The Math Wizard",
         "icon": "assets/penta_wizard.svg",
         "description": "Casts spells of affection.",
+        "surpriseTitle": "Ultimate Logistic Mapper! 🧙‍♂️",
+        "surpriseDesc": "You've successfully predicted the chaotic flow of affection with zero error margin.",
         "startNode": "q1",
         "nodes": {
             "q1": {
@@ -131,9 +135,11 @@ const GAME_DATA = {
     },
     "penta_cupid": {
         "id": "penta_cupid",
-        "name": "Cupid Penta",
+        "name": "The Homeless Cupid",
         "icon": "assets/penta_cupid.svg",
         "description": "Shoots arrows of pure wholesome vibes.",
+        "surpriseTitle": "Certified Soulmate Whisperer! 👼",
+        "surpriseDesc": "Your emotional intelligence is off the charts. You've navigated the labyrinth of the heart.",
         "startNode": "q1",
         "nodes": {
             "q1": {
@@ -148,48 +154,48 @@ const GAME_DATA = {
                 "text": "You treat dating like a multiplayer game: new match every 20 minutes, flirty banter on cooldown, never upgrade to “official.” Which love style are you running?",
                 "options": [
                     { "text": "Obsessive soulmate energy", "next": "q4", "correct": false },
-                    { "text": "Ludus (professional fuckboy mode)", "next": "q5", "correct": true },
-                    { "text": "Storge (basically roommates)", "next": "q4", "correct": false }
+                    { "text": "Ludus (professional fuckboy/fuckgirl mode)", "next": "q5", "correct": true },
+                    { "text": "Storge (we're basically married but also roommates)", "next": "q4", "correct": false }
                 ]
             },
             "q3": {
                 "text": "You’re mid-argument and realize “oh shit I’m being dramatic because I’m scared they’ll leave.” Which emotional intelligence superpower just activated?",
                 "options": [
-                    { "text": "Self-regulation (breathe and chill)", "next": "q6", "correct": false },
-                    { "text": "Self-awareness (clocked your bullshit)", "next": "q7", "correct": true },
-                    { "text": "Motivation (pivot to “let's forget this”)", "next": "q6", "correct": false }
+                    { "text": "Self-regulation (you breathe and chill)", "next": "q6", "correct": false },
+                    { "text": "Self-awareness (you clocked your bullshit)", "next": "q6", "correct": false },
+                    { "text": "Motivation (you pivot to “let’s fuck and forget this”)", "next": "q7", "correct": true }
                 ]
             },
             "q4": {
-                "text": "First 3 dates: insane chemistry. Month 4: they leave dishes in the sink and you want to die. Which Helen Fisher stage just crashed and burned?",
+                "text": "First 3 dates: insane chemistry, you’re already planning the wedding in your head. Month 4: they leave dishes in the sink and you want to die. Which Helen Fisher stage just crashed and burned?",
                 "options": [
-                    { "text": "Lust (still horny tho)", "next": null, "correct": false },
-                    { "text": "Attraction → Attachment reality check", "next": null, "correct": true },
+                    { "text": "Lust (still horny tho)", "next": null, "correct": true },
+                    { "text": "Attraction → Attachment reality check", "next": null, "correct": false },
                     { "text": "Attachment (picking out curtains)", "next": null, "correct": false }
                 ]
             },
             "q5": {
-                "text": "You cheated but tell yourself: “They never give me attention anyway” + “It was just one time.” What classic dissonance-reduction move is this?",
+                "text": "You cheated (emotionally or physically) but now you’re telling yourself: “They never give me attention anyway” + “It was just one time” + “We were on a break.” What classic dissonance-reduction move is this??",
                 "options": [
-                    { "text": "Adding shiny new excuses", "next": null, "correct": true },
-                    { "text": "Actually changing behavior", "next": null, "correct": false },
-                    { "text": "Gaslighting yourself", "next": null, "correct": false }
+                    { "text": "Adding shiny new excuses", "next": null, "correct": false },
+                    { "text": "Actually changing you behavior", "next": null, "correct": false },
+                    { "text": "Gaslighting yourself into believing it never happened", "next": null, "correct": true }
                 ]
             },
             "q6": {
-                "text": "You accuse your partner of flirting while secretly thirsting over your ex’s gym selfies. What defense mechanism are you projecting like a cinema?",
+                "text": "You keep accusing your partner of flirting with everyone… …while secretly thirsting over your ex’s gym selfies at 3 a.m. What defense mechanism are you projecting like a cinema?",
                 "options": [
                     { "text": "Denial (what selfies?)", "next": null, "correct": false },
-                    { "text": "Projection (they’re the horny one)", "next": null, "correct": true },
-                    { "text": "Rationalization (it's science)", "next": null, "correct": false }
+                    { "text": "Projection (they’re the horny one, not me)", "next": null, "correct": true },
+                    { "text": "Rationalization (everyone looks at gym pics, it’s science)", "next": null, "correct": false }
                 ]
             },
             "q7": {
-                "text": "You got brutally dumped but now you're hitting the gym, in therapy, and actually like yourself. What spicy post-heartbreak glow-up is this?",
+                "text": "You got brutally dumped 4 months ago. Now you’re suddenly hitting the gym, started therapy, reconnected with friends, and actually like yourself again.What spicy post-heartbreak glow-up is this?",
                 "options": [
-                    { "text": "Post-traumatic growth (hotter, wiser)", "next": null, "correct": true },
+                    { "text": "Post-traumatic growth (hotter, wiser, hornier)", "next": null, "correct": true },
                     { "text": "Manic rebound era", "next": null, "correct": false },
-                    { "text": "You're just pretending", "next": null, "correct": false }
+                    { "text": "You’re just pretending so they’ll regret it", "next": null, "correct": false }
                 ]
             }
         }

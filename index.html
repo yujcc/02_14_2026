@@ -36,7 +36,7 @@
         <!-- Desktop Folder Icon -->
         <div class="desktop-icon" id="open-folder">
             <img src="assets/folder_pink.png" alt="Love Logic Folder" class="custom-folder">
-            <span>Love_Logic</span>
+            <span>Do it. I dare you</span>
         </div>
 
     </div>
@@ -69,7 +69,7 @@
                 <div class="control yellow"></div>
                 <div class="control green"></div>
             </div>
-            <div class="window-title">Valentine.exe</div>
+            <div class="window-title">Hmph.exe</div>
             <i class="ph-heart header-icon"></i>
         </div>
 
@@ -78,8 +78,8 @@
             <!-- VIEW 0: Start Screen -->
             <div id="start-screen">
                 <div class="hero">
-                    <h1>Valentine.exe</h1>
-                    <p>System Ready?</p>
+                    <h1>ペンタさん</h1>
+                    <p>Are you Ready?</p>
                 </div>
                 <div class="center">
                     <button class="btn" onclick="startLoadingSequence()">
@@ -143,9 +143,29 @@
 
                     <!-- Info Box -->
                     <div class="info-box">
-                        <h2 id="char-title">Mathematical Penguin</h2>
-                        <p id="char-desc">Logic. Patterns. Chaos equations. Explore the beauty of numbers with Wizard
-                            Penta!</p>
+                        <h2 id="char-title">The Math Wizard</h2>
+                        <p id="char-desc">Logic. Patterns. Chaos equations.</p>
+
+                        <div class="char-stats">
+                            <div class="stat-row">
+                                <span class="stat-label">IQ</span>
+                                <div class="stat-bar-bg">
+                                    <div id="stat-iq" class="stat-bar-fill"></div>
+                                </div>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">EQ</span>
+                                <div class="stat-bar-bg">
+                                    <div id="stat-eq" class="stat-bar-fill"></div>
+                                </div>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">DET</span>
+                                <div class="stat-bar-bg">
+                                    <div id="stat-det" class="stat-bar-fill"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Action Button -->
@@ -178,7 +198,7 @@
                 </div>
                 <!-- Optional: Restart Button -->
                 <div class="center">
-                    <button class="btn" onclick="location.reload()">Play Again</button>
+                    <button class="btn" onclick="restartGame()">Play Again</button>
                 </div>
             </div>
 
@@ -187,7 +207,7 @@
     </div>
 
     <div class="footer">
-       0 I • 2 O • 5 U
+        0 I • 2 O • 5 U
     </div>
 
     <!-- Collapsible Home Menu -->
@@ -203,6 +223,9 @@
             </button>
             <button class="menu-btn" onclick="goBack()" title="Go Back">
                 <i class="ph-arrow-bend-up-left"></i>
+            </button>
+            <button class="menu-btn reset-btn" onclick="resetProgress()" title="Reset All Progress">
+                <i class="ph ph-trash"></i>
             </button>
         </div>
 
@@ -223,6 +246,89 @@
             <h3>Love Note</h3>
             <p>You are loved! 💖<br>(This is a reminder from the Universe)</p>
         </div>
+    </div>
+
+    <!-- Mastery Modal (Hidden by default) -->
+    <div id="mastery-modal" class="modal-overlay hidden" onclick="closeMasteryModal(event)">
+        <div class="mastery-box">
+            <button class="modal-close"
+                onclick="document.getElementById('mastery-modal').classList.add('hidden')">&times;</button>
+            <div class="modal-trophy-icon">🏆</div>
+            <h2 id="mastery-title" class="mastery-title">Character Mastered! ✨</h2>
+            <div id="mastery-desc" class="mastery-desc">Congratulations! You've master this character's path.</div>
+        </div>
+    </div>
+
+    <!-- Generic System Modal / Confirmation -->
+    <div id="system-modal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <div id="system-icon" class="modal-heart-icon">⚠️</div>
+            <h2 id="system-title" class="modal-title">System Message</h2>
+            <div id="system-desc" class="modal-desc">This is a system message.</div>
+            <div class="modal-footer" id="system-footer">
+                <button class="btn" onclick="closeSystemModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Animation Overlays -->
+    <div id="wizardSpell" class="spell-overlay hidden">
+        <div class="spell-circle"></div>
+        <div class="spell-lightning"></div>
+    </div>
+
+    <!-- Chef Animation Placeholder -->
+    <div id="chefAnimation" class="spell-overlay hidden">
+        <div id="cash-rain-container"></div>
+    </div>
+
+    <!-- Cupid Animation Placeholder -->
+    <div id="cupidAnimation" class="spell-overlay hidden">
+        <div id="heart-rain-container"></div>
+    </div>
+
+    <!-- Secret Master Quest Modal -->
+    <div id="secret-quest-modal" class="modal-overlay hidden">
+        <div class="modal-box quest-box">
+            <div class="modal-heart-icon">🧪</div>
+            <h2 class="modal-title">The Final Proof</h2>
+            <div class="quest-content">
+                <p class="math-formula">\(z(t) \approx \sum_{n=-4}^{4} c_n e^{i n t}\)</p>
+                <p>The dominant coefficient is \(c_{-1} \approx 0.976i\) (after normalization).</p>
+                <p class="quest-question">Which single term (when added to the constant \(c_0\)) contributes most to the
+                    characteristic cleft and pointed bottom of the heart shape?
+                </p>
+                <div id="quest-options" class="options-grid">
+                    <!-- Options injected by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grand Finale Present Modal -->
+    <div id="finale-modal" class="modal-overlay hidden">
+        <div class="modal-box finale-box">
+            <div id="finale-icon" class="modal-heart-icon">🎁</div>
+            <h2 id="finale-title" class="modal-title">A Gift for You</h2>
+            <div id="finale-desc" class="modal-desc"></div>
+            <div id="present-container" class="present-container hidden">
+                <div class="tracking-card">
+                    <span class="tracking-label">Tracking Number:</span>
+                    <span class="tracking-value">9434640106147000105469</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="present-btn" class="btn btn-primary" onclick="game.openPresent()">Open Present</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="rose-animation-container"></div>
+
+    <!-- Fourier Heart Animation (Master Egg Preview) -->
+    <div id="fourier-container" class="spell-overlay hidden">
+        <canvas id="fourier-canvas"></canvas>
+        <div id="fourier-message" class="fourier-message">Happy Valentines!</div>
     </div>
 
     <script src="game_data.js"></script>
