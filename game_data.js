@@ -5,7 +5,7 @@ const GAME_DATA = {
         "icon": "assets/penta_chef.svg",
         "description": "Cooks with love (and chaos).",
         "surpriseTitle": "Career Survivor Unleashed! 🍳",
-        "surpriseDesc": "You've turned 2026's chaos into a five-star meal. Someone get this bird a job!",
+        "surpriseDesc": "You've turned 2026's chaos into a just edible meal. Someone get this bird a job! Haha!",
         "startNode": "q1",
         "nodes": {
             "q1": {
@@ -71,8 +71,8 @@ const GAME_DATA = {
         "name": "The Math Wizard",
         "icon": "assets/penta_wizard.svg",
         "description": "Casts spells of affection.",
-        "surpriseTitle": "Ultimate Logistic Mapper! 🧙‍♂️",
-        "surpriseDesc": "You've successfully predicted the chaotic flow of affection with zero error margin.",
+        "surpriseTitle": "Ultimate Logistic Mapper! 🧙‍♂️ ",
+        "surpriseDesc": "You've successfully predicted the chaotic flow of affection with zero error margin. Good Job I suppose.",
         "startNode": "q1",
         "nodes": {
             "q1": {
@@ -139,7 +139,7 @@ const GAME_DATA = {
         "icon": "assets/penta_cupid.svg",
         "description": "Shoots arrows of pure wholesome vibes.",
         "surpriseTitle": "Certified Soulmate Whisperer! 👼",
-        "surpriseDesc": "Your emotional intelligence is off the charts. You've navigated the labyrinth of the heart.",
+        "surpriseDesc": "Your emotional intelligence is off the charts. You've navigated the labyrinth of the heart. So why you no like anyone who likes you?",
         "startNode": "q1",
         "nodes": {
             "q1": {

@@ -49,8 +49,7 @@ body {
 ========================= */
 .desktop {
   padding: 30px;
-  min-height: 100vh;
-  min-height: 100dvh;
+  min-height: 95dvh;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -289,11 +288,11 @@ body {
 
 .hero h1 {
   font-family: "Cherry Bomb One", system-ui;
-  font-size: 36px;
+  font-size: 72px;
 }
 
 .hero p {
-  font-size: 14px;
+  font-size: 16px;
   opacity: 0.8;
 }
 
@@ -478,18 +477,75 @@ body {
 
 /* Mastery Specific Modal */
 .mastery-box {
-  background: #fffdf0;
-  /* Slight gold tint */
-  border-color: #f59e0b;
-  box-shadow: 8px 8px 0px #f59e0b;
+  background: linear-gradient(145deg, #fffdf0, #fffcf5);
+  border: 4px solid #f59e0b;
+  box-shadow: 0 20px 50px rgba(245, 158, 11, 0.2),
+    10px 10px 0px #f59e0b;
+  width: 500px;
+  max-width: 90vw;
+  padding: 50px 40px;
+  border-radius: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.mastery-box::before {
+  content: "✨";
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  font-size: 24px;
+  opacity: 0.3;
+}
+
+.mastery-box::after {
+  content: "✨";
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  font-size: 24px;
+  opacity: 0.3;
+}
+
+.mastery-title {
+  font-family: "Cherry Bomb One", system-ui;
+  font-size: 32px;
+  color: #b45309;
+  margin: 10px 0 20px;
+  line-height: 1.25;
+  text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.5);
+}
+
+.mastery-desc {
+  font-family: "Space Mono", monospace;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #4A3737;
+  background: rgba(245, 158, 11, 0.08);
+  padding: 20px;
+  border-radius: 18px;
+  border: 1px dashed rgba(245, 158, 11, 0.3);
 }
 
 .modal-trophy-icon {
-  font-size: 50px;
+  font-size: 64px;
   color: #f59e0b;
   margin-bottom: 20px;
   display: block;
   animation: rotateGlow 4s linear infinite;
+}
+
+.mastery-box .modal-close {
+  top: 20px;
+  right: 20px;
+  font-size: 28px;
+  color: #b45309;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.mastery-box .modal-close:hover {
+  opacity: 1;
 }
 
 @keyframes rotateGlow {

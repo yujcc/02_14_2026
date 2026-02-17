@@ -144,17 +144,17 @@ function updateSelectionUI() {
     const charData = [
         {
             title: "The Math Wizard",
-            desc: "Logic. Patterns. Chaos equations.",
+            desc: "She believes in... actually nothing. To her, love is never a thing. She didn't believe in any of that. In fact, she can't believe in herself.",
             iq: 95, eq: 20, det: 65
         },
         {
             title: "Pentatouille",
-            desc: "Feelings. Love languages. Romance.",
+            desc: "She dreams. She thinks. She cries and sighs. She goes to sleep.",
             iq: 25, eq: 65, det: 90
         },
         {
             title: "The Homeless Cupid",
-            desc: "Career. Ambition. Long-term goals.",
+            desc: "She has no palace. She walks barefoot through crowded streets, unable to find love. She yearns for love to warm her up. She gets offers she rejects. Love might be the last thing that responds to her.",
             iq: 10, eq: 95, det: 30
         }
     ];
@@ -326,13 +326,10 @@ function resetProgress() {
         "Are you sure you want to delete everything? Your milestones, cleared questions, and character masteries will be wiped forever.",
         "🗑️",
         [
-            { text: "Cancel", className: "btn-secondary", action: null },
-            {
-                text: "Reset Everything", className: "btn-danger", action: () => {
+            { text: "Cancel", className: "btn-secondary", action: () => {
                     localStorage.clear();
-                    location.reload();
-                }
-            }
+                    location.reload(); } },
+            { text: "Reset Everything", className: "btn-danger", action: () => null   }
         ]
     );
 }
@@ -404,5 +401,3 @@ function goBack() {
         if (prevState) applyState(prevState);
     }
 }
-
-

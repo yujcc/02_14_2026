@@ -127,13 +127,17 @@ class GameEngine {
 
         if (answered.length >= totalQuestions) {
             console.log("MASTER EASTER EGG UNLOCKED!");
-            this.triggerRoseExplosion();
 
-            // Wait for rose animation to peak, then show the secret question
-            setTimeout(() => this.showSecretQuest(), 4000);
+            // Delay to allow Character Mastery Modal to be seen first
+            setTimeout(() => {
+                this.triggerRoseExplosion();
 
-            document.body.style.backgroundImage = "radial-gradient(#ff0000 1.5px, #fff5f5 1.5px)";
-            document.body.style.backgroundSize = "30px 30px";
+                // Wait for rose animation to peak, then show the secret question
+                setTimeout(() => this.showSecretQuest(), 4000);
+
+                document.body.style.backgroundImage = "radial-gradient(#ff0000 1.5px, #fff5f5 1.5px)";
+                document.body.style.backgroundSize = "30px 30px";
+            }, 4500);
         }
     }
 
@@ -229,10 +233,10 @@ class GameEngine {
             message = "You've mastered every mathematical challenge! The equations of the heart are now yours to control.";
             this.triggerWizardSpell();
         } else if (pentaId === "penta_chef") {
-            message = "Career survivor! You've navigated the job market of 2026 and cleared every hurdle.";
+            message = "Career survivor! You've navigated the job market of 2026 and cleared every hurdle (for real pls).";
             this.triggerChefAnimation();
         } else if (pentaId === "penta_cupid") {
-            message = "The Master of Attachment! You've successfully mapped the psychology of modern love.";
+            message = "The Master of Attachment! You've successfully mapped the psychology of modern love (I think). You're hot and horny.";
             this.triggerCupidAnimation();
         }
 
@@ -245,8 +249,9 @@ class GameEngine {
         const titleEl = document.getElementById("mastery-title");
         const bodyEl = document.getElementById("mastery-desc");
 
-        if (titleEl) titleEl.textContent = `${name} Mastered! ✨`;
-        if (bodyEl) bodyEl.innerHTML = `Congratulations! 💖<br>${message}`;
+        if (titleEl) titleEl.textContent = `${name} Mastered!
+            ✨You finished one, YAY! Took you how long?✨`;
+        if (bodyEl) bodyEl.innerHTML = `Congratulations! 💖<br>${message}<br><br>But don't worry, ペンタさん の 旅 shall continue. Cuz life ain't stopping.`;
 
         modal.classList.remove("hidden");
     }
@@ -445,11 +450,13 @@ class GameEngine {
             resultDesc.textContent = this.currentPenta.surpriseDesc || "You know Penta perfectly!";
             if (!skipHistory) this.triggerConfetti();
         } else if (type === "success") {
-            resultTitle.textContent = "Success! 🌟";
-            resultDesc.textContent = `You got ${this.correctCount}/3 right! Penta is impressed with your efforts.`;
+            resultTitle.textContent = "Ehhh... not bad.! 🌟";
+            // resultDesc.textContent = `You got ${this.correctCount}/3 right! Penta is impressed with your efforts.`;
+            resultDesc.textContent = `ペンタさん is impressed with your efforts tho. Try harder.`;
         } else {
             resultTitle.textContent = "Oops... 💔";
-            resultDesc.textContent = `Only ${this.correctCount}/3 correct. That was... not great. Keep trying to win their heart!`;
+            // resultDesc.textContent = `Only ${this.correctCount}/3 correct. That was... not great. Keep trying to win their heart!`;
+            resultDesc.textContent = `That's it? That was all... ? ペンタさん is heartbroken for you.`;
         }
 
         if (!skipHistory && typeof pushHistory === "function") pushHistory();
