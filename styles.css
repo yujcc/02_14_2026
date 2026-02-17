@@ -27,7 +27,7 @@ body {
   font-family: "Space Mono", monospace;
   color: var(--text);
   min-height: 100vh;
-  min-height: 100dvh;
+  min-height: 95dvh;
   overflow-x: hidden;
 
   /*
